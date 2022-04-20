@@ -1,9 +1,17 @@
 import React from "react";
 import style from "./Header.module.css";
 import { Input } from "antd";
-import { SearchOutlined, BellFilled, LoginOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  BellFilled,
+  LoginOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const { isAuth } = useSelector((state) => state.user);
+
   return (
     <div className={style.headerStructure}>
       <h1>Home</h1>
@@ -19,8 +27,17 @@ const Header = () => {
           Notification
         </div>
         <div>
-          <LoginOutlined style={{ fontSize: 20, marginRight: 8 }} />
-          Login
+          {isAuth ? (
+            <>
+              <LogoutOutlined style={{ fontSize: 20, marginRight: 8 }} />
+              Logout
+            </>
+          ) : (
+            <>
+              <LoginOutlined style={{ fontSize: 20, marginRight: 8 }} />
+              Login
+            </>
+          )}
         </div>
       </div>
     </div>
