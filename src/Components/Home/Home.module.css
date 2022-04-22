@@ -1,0 +1,29 @@
+.bodyStructure{
+  display: flex;
+  flex-direction: column;
+  padding: 86px 10%;
+  /* margin-top: 70px; */
+}
+
+.user{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user>img{
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.user p{
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.description{
+  
+}
