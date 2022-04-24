@@ -11,14 +11,20 @@ const Home = () => {
     <div className={style.bodyStructure}>
       {posts.map((postData, idx) => {
         return (
-          <Card>
+          <Card key={get(postData, "id")}>
             <div className={style.post}>
               <div className={style.user}>
                 <img src={get(postData, "user.profile", profilePic)} alt="" />
                 <p>{get(postData, "user.name")}</p>
               </div>
-              <img src={get(postData, "postImage", noImage)} alt="" />
-              <p className={style.description}>{get(postData, "des")}</p>
+              <div className={style.postData}>
+                <div className={style.postImage}>
+                  <img src={get(postData, "postImage", noImage)} alt="" />
+                </div>
+                <p className={style.description}>
+                  {get(postData, "description")}
+                </p>
+              </div>
             </div>
           </Card>
         );

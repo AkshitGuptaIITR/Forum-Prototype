@@ -1,29 +1,46 @@
-.bodyStructure{
+.bodyStructure {
   display: flex;
   flex-direction: column;
   padding: 86px 10%;
   /* margin-top: 70px; */
 }
 
-.user{
+.user {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.user>img{
+.user > img {
   width: 24px;
   height: 24px;
   border-radius: 50%;
   margin-right: 8px;
 }
 
-.user p{
+.user p {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
 }
 
-.description{
-  
+.user img {
+  margin: 12px 0px;
+  margin-right: 12px;
+}
+
+.description {
+  margin: 12px 0px;
+}
+
+.postImage {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.postImage > img {
+  min-width: 100%;
+  min-height: fit-content;
 }
