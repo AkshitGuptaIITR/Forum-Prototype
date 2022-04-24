@@ -33,6 +33,7 @@ const posts = [
     dislikes: 2,
     comments: [
       {
+        id: 1,
         user: {
           name: 'monica',
           profile: undefined

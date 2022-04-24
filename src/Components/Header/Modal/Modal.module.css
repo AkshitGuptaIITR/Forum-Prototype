@@ -1,0 +1,54 @@
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form > input {
+  border: 1.5px solid rgba(0, 0, 0, 0.7);
+  border-radius: 4px;
+  margin: 12px 0px;
+  padding: 6px 4px;
+}
+
+.loginBtn,
+.loginBtn:hover {
+  background-color: #ff6363 !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  outline: none;
+  border: none !important;
+  margin-right: 12px;
+}
+
+.cancelBtn {
+  border-radius: 4px;
+}
+
+.cancelBtn:hover {
+  border-color: #ff6363;
+  color: #ff6363;
+}
+
+.commentComponent {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalBtn{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.form>p{
+  display: flex;
+  justify-content: center;
+}
+
+.form>p:hover{
+  cursor: pointer;
+  color: rgb(76, 76, 233);
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import style from "./Header.module.css";
-import { Input } from "antd";
+import { Input, notification } from "antd";
 import {
   SearchOutlined,
   BellFilled,
@@ -8,28 +8,59 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Modal } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import users from "../../constants/users";
+import { setAuth, setLogout } from "../../store/authSlice";
+import HomeModal from "./Modal/Modal";
 
 const Header = () => {
   const { isAuth } = useSelector((state) => state.user);
-  const {visible, setVisible} = useState(false);
+  const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const handleCancel = () => {
-    setVisible(false)
-  }
+    setVisible(false);
+  };
 
   const handleOpen = () => {
-    setVisible(true)
-  }
+    setVisible(true);
+  };
+
+  const handleLogout = () => {
+    dispatch(setLogout());
+    notification.success({
+      message: "Logged Out Successfully!",
+    });
+  };
+
+  const handleOnSubmit = (values) => {
+    // eslint-disable-next-line array-callback-return
+    users.filter((value) => {
+      if (value.email === values.email && value.password === values.password) {
+        notification.success({
+          message: "Logged in successfully!",
+        });
+        setVisible(false);
+        dispatch(
+          setAuth({
+            user: value,
+          })
+        );
+      } else {
+        notification.warn({
+          message: "Please provide correct email/password.",
+        });
+      }
+    });
+  };
 
   return (
     <>
-    <Modal visible={visible} onCancel={handleCancel}>
-      <p>
-        asudb
-      </p>
-    </Modal>
+      <HomeModal
+        visible={visible}
+        handleCancel={handleCancel}
+        handleOnSubmit={handleOnSubmit}
+      />
       <div className={style.headerStructure}>
         <h1>Home</h1>
         <Input
@@ -45,14 +76,14 @@ const Header = () => {
           </div>
           <div>
             {isAuth ? (
-              <>
+              <div onClick={handleLogout}>
                 <LogoutOutlined style={{ fontSize: 20, marginRight: 8 }} />
                 Logout
-              </>
+              </div>
             ) : (
               <div onClick={handleOpen}>
                 <LoginOutlined style={{ fontSize: 20, marginRight: 8 }} />
-                Login
+                Login/Signup
               </div>
             )}
           </div>

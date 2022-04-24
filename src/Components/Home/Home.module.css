@@ -48,14 +48,36 @@
 .lowerComponent {
   display: flex;
   flex-direction: row;
+  margin: 12px 0px;
 }
 
 .icons {
   width: 22px !important;
   height: 22px !important;
   margin-right: 8px;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .icons:hover {
+  cursor: pointer;
+}
+
+.commentComponent {
+  margin-left: 32px;
+}
+
+.createPost{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.createPost>b{
+  font-size: 16px;
+  margin-left: 12px;
+}
+
+.createPost:hover{
   cursor: pointer;
 }
