@@ -1,6 +1,6 @@
 import React from "react";
 import posts from "../../constants/posts";
-import Card from "../../HelperComponents/Card";
+import Card from "../../HelperComponents/Card/Card";
 import style from "./Home.module.css";
 import { get } from "lodash";
 import profilePic from "../../Assets/profilePic.png";

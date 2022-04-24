@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./Header.module.css";
 import { Input } from "antd";
 import {
@@ -9,12 +9,27 @@ import {
 } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Modal } from "antd";
 
 const Header = () => {
   const { isAuth } = useSelector((state) => state.user);
+  const {visible, setVisible} = useState(false);
+
+  const handleCancel = () => {
+    setVisible(false)
+  }
+
+  const handleOpen = () => {
+    setVisible(true)
+  }
 
   return (
-    <div>
+    <>
+    <Modal visible={visible} onCancel={handleCancel}>
+      <p>
+        asudb
+      </p>
+    </Modal>
       <div className={style.headerStructure}>
         <h1>Home</h1>
         <Input
@@ -35,16 +50,16 @@ const Header = () => {
                 Logout
               </>
             ) : (
-              <>
+              <div onClick={handleOpen}>
                 <LoginOutlined style={{ fontSize: 20, marginRight: 8 }} />
                 Login
-              </>
+              </div>
             )}
           </div>
         </div>
       </div>
       <Outlet />
-    </div>
+    </>
   );
 };
 
