@@ -5,6 +5,8 @@ import style from "./Home.module.css";
 import { get } from "lodash";
 import profilePic from "../../Assets/profilePic.png";
 import noImage from "../../Assets/noImage.png";
+import { BiLike, BiDislike } from "react-icons/bi";
+import { FaRegCommentAlt } from "react-icons/fa";
 
 const Home = () => {
   return (
@@ -24,6 +26,11 @@ const Home = () => {
                 <p className={style.description}>
                   {get(postData, "description")}
                 </p>
+              </div>
+              <div className={style.lowerComponent}>
+                <BiLike className={style.icons} />
+                <BiDislike className={style.icons} />
+                <FaRegCommentAlt className={style.icons} />
               </div>
             </div>
           </Card>

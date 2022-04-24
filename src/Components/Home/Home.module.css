@@ -44,3 +44,18 @@
   min-width: 100%;
   min-height: fit-content;
 }
+
+.lowerComponent {
+  display: flex;
+  flex-direction: row;
+}
+
+.icons {
+  width: 22px !important;
+  height: 22px !important;
+  margin-right: 8px;
+}
+
+.icons:hover {
+  cursor: pointer;
+}
