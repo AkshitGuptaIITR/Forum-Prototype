@@ -81,3 +81,29 @@
 .createPost:hover{
   cursor: pointer;
 }
+
+.addComment{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.addComment>input{
+  border: 1.5px solid rgba(0, 0, 0, 0.7);
+  border-radius: 4px;
+  width: 100%;
+  margin: 12px 0px;
+  padding: 4px 4px;
+}
+
+  .commentBtn,
+.commentBtn:hover {
+  background-color: #ff6363 !important;
+  color: #ffffff !important;
+  width: 102px;
+  border-radius: 4px !important;
+  outline: none;
+  border: none !important;
+  margin-right: 12px;
+}

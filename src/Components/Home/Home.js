@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import posts from "../../constants/posts";
 import Card from "../../HelperComponents/Card/Card";
 import style from "./Home.module.css";
@@ -11,14 +11,28 @@ import { AiTwotoneLike, AiTwotoneDislike } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { GrAddCircle } from "react-icons/gr";
 import PostModal from "./Modal/PostModal";
+import { Button, notification } from "antd";
 
 const Home = () => {
   const [likedIndex, setLikedIndex] = useState([]);
   const [dislikedIndex, setDisLikedIndex] = useState([]);
-  const { isAuth } = useSelector((state) => state.user);
+  const { isAuth, user } = useSelector((state) => state.user);
   const [visible, setVisible] = useState(false);
+  const [isComment, setIsComment] = useState(false);
+  const [id, setId] = useState(null);
+  const [comment, setComment] = useState(null)
+  const [post, setPosts] = useState([]);
 
+  useEffect(() => {
+    setPosts(posts);
+  }, [])
+  
   const handleLike = (index) => {
+    if (!isAuth) {
+      return notification.error({
+        message: "Please login first to like or dislike",
+      });
+    }
     if (likedIndex.includes(index)) {
       var array = likedIndex.filter((value) => {
         if (value === index) {
@@ -36,6 +50,11 @@ const Home = () => {
   };
 
   const handleDislike = (index) => {
+    if (!isAuth) {
+      return notification.error({
+        message: "Please login first to like or dislike",
+      });
+    }
     if (dislikedIndex.includes(index)) {
       var array = dislikedIndex.filter((value) => {
         if (value === index) {
@@ -53,16 +72,42 @@ const Home = () => {
   };
 
   const handleVisible = () => {
-    setVisible(!visible)
-  }
+    setVisible(!visible);
+  };
 
-  const handleOnSubmit = () => {
-    
+  const handleOnSubmit = () => {};
+
+  const handleComment = (idx) => {
+    if (!isAuth) {
+      return notification.error({
+        message: "Please login first to add comment.",
+      });
+    }
+    setId(idx);
+    setIsComment(!isComment)
+  };
+
+  const handleAddComment = () => {
+    let newComments = [...post[id].comments, {
+      id: post[id].comments.length + 1,
+      comment,
+      user
+    }]
+
+    let newPost = post;
+
+    newPost[id].comments = newComments;
+
+    setPosts(newPost)
   }
 
   return (
     <div className={style.bodyStructure}>
-    <PostModal visible={visible} handleCancel={handleVisible} handleOnSubmit={handleOnSubmit} />
+      <PostModal
+        visible={visible}
+        handleCancel={handleVisible}
+        handleOnSubmit={handleOnSubmit}
+      />
       {isAuth ? (
         <Card onClick={handleVisible}>
           <div className={style.createPost}>
@@ -71,7 +116,7 @@ const Home = () => {
           </div>
         </Card>
       ) : null}
-      {posts.map((postData, idx) => {
+      {post.map((postData, idx) => {
         return (
           <Card key={get(postData, "id")}>
             <div className={style.post}>
@@ -112,9 +157,22 @@ const Home = () => {
                     onClick={() => handleDislike(idx)}
                   />
                 )}
-                <FaRegCommentAlt className={style.icons} />
+                <FaRegCommentAlt
+                  onClick={() => handleComment(idx)}
+                  className={style.icons}
+                />
               </div>
               <div className={style.commentComponent}>
+                <div className={style.addComment}>
+                  {isComment && (id === idx) ? (
+                    <>
+                      <input placeholder="Add comment" type="text" onChange={(e) => setComment(e.target.value)} />
+                      <Button className={style.commentBtn} onClick={() => handleAddComment(idx)}>Comment</Button>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
                 {postData.comments.map((data) => {
                   return (
                     <div className={style.post}>
@@ -129,32 +187,6 @@ const Home = () => {
                     </div>
                   );
                 })}
-                <div className={style.lowerComponent}>
-                  {!likedIndex.includes(idx) ? (
-                    <BiLike
-                      className={style.icons}
-                      onClick={() => handleLike(idx)}
-                    />
-                  ) : (
-                    <AiTwotoneLike
-                      style={{ color: "#D9534F" }}
-                      className={style.icons}
-                      onClick={() => handleLike(idx)}
-                    />
-                  )}
-                  {!dislikedIndex.includes(idx) ? (
-                    <BiDislike
-                      className={style.icons}
-                      onClick={() => handleDislike(idx)}
-                    />
-                  ) : (
-                    <AiTwotoneDislike
-                      // style={{color: '#0C1E7F'}}
-                      className={style.icons}
-                      onClick={() => handleDislike(idx)}
-                    />
-                  )}
-                </div>
               </div>
             </div>
           </Card>
